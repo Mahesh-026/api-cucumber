@@ -24,14 +24,6 @@ public class APISteps {
         assertEquals(statusCode.intValue(), response.getStatusCode());
     }
 
-    @Given("I send a POST request to {string} with body:")
-    public void i_send_a_post_request(String url, String body) {
-        response = given()
-                .header("Content-Type", "application/json")
-                .body(body)
-                .post(url);
-    }
-
     @Given("I set the base API endpoint to {string}")
     public void setBaseUri(String baseUri) {
         RestAssured.baseURI = baseUri;
