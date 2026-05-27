@@ -115,6 +115,14 @@
         </includes>
     </configuration>
 </plugin>
+<plugins>
+  <plugin>
+    <groupId>net.masterthought</groupId>
+    <artifactId>cucumber-reporting</artifactId>
+    <version>5.7.0</version>
+  </plugin>
+</plugins>
+
       </plugins>
     </pluginManagement>
   </build>
