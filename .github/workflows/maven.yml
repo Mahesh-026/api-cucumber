@@ -2,6 +2,8 @@ name: Maven Tests
 
 on:
   push:
+    paths:
+      - 'src/test/resources/features/**'
     branches: [ main ]
   pull_request:
     branches: [ main ]
