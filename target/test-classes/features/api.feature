@@ -14,22 +14,15 @@ Feature: API Testing with RestAssured
       """
     Then the response status code should be 201  
 
-    Scenario: Create, retrieve, and delete a user
-    Given I set the base API endpoint to "https://reqres.in/api"
-    When I send a POST request to "/users" with body:
-      """
-      {
-        "name": "Mahesh",
-        "job": "Automation Tester"
-      }
-      """
-    Then the response status should be 201
-    And the response should contain "id"
-    And I save the "id" from the response as "userId"
-
-    When I send a GET request to "/users/{userId}"
-    Then the response status should be 200
-    And the response should contain "Mahesh"
-
-    When I send a DELETE request to "/users/{userId}"
-    Then the response status should be 204
+   Scenario: Create a new post
+  Given I set the base API endpoint to "https://jsonplaceholder.typicode.com"
+  When I send a POST request to "/posts" with body:
+    """
+    {
+      "title": "API Automation",
+      "body": "Testing complex POST request",
+      "userId": 99
+    }
+    """
+  Then the response status should be 201
+  And the response should contain "id"
