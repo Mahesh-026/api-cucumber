@@ -12,4 +12,4 @@ Feature: API Testing with RestAssured
         "userId": 1
       }
       """
-    Then the response status code should be 201
+    Then the response status code should be 201  
