@@ -14,19 +14,15 @@ public class APISteps {
     Response response;
     Map<String, String> scenarioContext = new HashMap<>();
 
-    @Given("I send a GET request to {string}")
-    public void i_send_a_get_request(String url) {
-        response = get(url);
-    }
-
-    @Then("the response status code should be {int}")
-    public void the_response_status_code_should_be(Integer statusCode) {
-        assertEquals(statusCode.intValue(), response.getStatusCode());
-    }
-
     @Given("I set the base API endpoint to {string}")
     public void setBaseUri(String baseUri) {
         RestAssured.baseURI = baseUri;
+    }
+
+    @When("I send a GET request to {string}")
+    public void sendGetRequest(String path) {
+        String resolvedPath = resolvePath(path);
+        response = RestAssured.get(resolvedPath);
     }
 
     @When("I send a POST request to {string} with body:")
@@ -35,6 +31,17 @@ public class APISteps {
                 .header("Content-Type", "application/json")
                 .body(body)
                 .post(path);
+    }
+
+    @When("I send a DELETE request to {string}")
+    public void sendDeleteRequest(String path) {
+        String resolvedPath = resolvePath(path);
+        response = RestAssured.delete(resolvedPath);
+    }
+
+    @Then("the response status code should be {int}")
+    public void the_response_status_code_should_be(Integer statusCode) {
+        assertEquals(statusCode.intValue(), response.getStatusCode());
     }
 
     @Then("the response status should be {int}")
@@ -51,18 +58,6 @@ public class APISteps {
     public void saveValue(String jsonKey, String alias) {
         String value = response.jsonPath().getString(jsonKey);
         scenarioContext.put(alias, value);
-    }
-
-    @When("I send a GET request to {string}")
-    public void sendGetRequest(String path) {
-        String resolvedPath = resolvePath(path);
-        response = RestAssured.get(resolvedPath);
-    }
-
-    @When("I send a DELETE request to {string}")
-    public void sendDeleteRequest(String path) {
-        String resolvedPath = resolvePath(path);
-        response = RestAssured.delete(resolvedPath);
     }
 
     // Helper method to replace placeholders like {userId} with stored values
