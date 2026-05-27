@@ -25,19 +25,22 @@ public class APISteps {
         response = RestAssured.get(resolvedPath);
     }
 
-    @When("I send a POST request to {string} with body:")
-    public void sendPostRequest(String path, String body) {
-        response = RestAssured.given()
+   @When("I send a POST request to {string} with body:")
+public void sendPostRequest(String path, String body) {
+    response = RestAssured.given()
                 .header("Content-Type", "application/json")
+                .header("Accept", "application/json")
                 .body(body)
                 .post(path);
-    }
+}
 
     @When("I send a DELETE request to {string}")
     public void sendDeleteRequest(String path) {
         String resolvedPath = resolvePath(path);
         response = RestAssured.delete(resolvedPath);
     }
+
+    
 
     @Then("the response status code should be {int}")
     public void the_response_status_code_should_be(Integer statusCode) {
